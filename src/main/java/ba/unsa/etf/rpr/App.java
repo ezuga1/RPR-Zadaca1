@@ -14,26 +14,15 @@ public class App
     */
     public static void main( String[] args )
     {
-        Scanner in = new Scanner(System.in);
-        System.out.println("Enter an expression you want to evaluate: ");
-        //try catch block checks is input valid arithmetic operator
-
-        String s = "";
-        for (int i = 0; i<args.length; i++){
-            if(args[i]==" ") continue;
-            else
-                s = s.concat(args[i]);
-        }
-        try{
-
-             ValidInput.isValid(s);
-            double ev = ExpressionEvaluator.evaluate(s); //Evaluated expression
-                    System.out.println(ev);
-
+         try{
+            ValidInput.isValid(args[0]);
+            double ev = ExpressionEvaluator.evaluate(args[0]);
+            System.out.println(ev);
         }
         catch (RuntimeException e){
             System.out.println(e);
         }
+
 
 
 

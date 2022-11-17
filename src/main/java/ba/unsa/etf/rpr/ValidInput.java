@@ -11,14 +11,17 @@ public class ValidInput {
     /**
      * Check arithmetic expression.
      */
-    public static void isValid(String s){
+    public static boolean isValid(String s){
         boolean valid = true;
         char tmp = s.charAt(0);
         char tmp2 = s.charAt(s.length() - 1);
         int openparen = 0;
         int closedparen = 0;
-        if(tmp != '(' || tmp2 != ')')
+        if(tmp != '(' || tmp2 != ')'){
+            valid = false;
             throw new RuntimeException("Invalid input"); //Return false if first element not "(" or last not ")".
+        }
+
         else {
             openparen = openparen +1;
             closedparen = closedparen +1;
@@ -31,12 +34,18 @@ public class ValidInput {
             if(isClosed(s.charAt(i)))
                 closedparen = closedparen +1; //num of closed brackets
         }
-        if(openparen != closedparen) //return false if numbers are different
-            throw new RuntimeException();
+        if(openparen != closedparen){  //return false if numbers are different
+          valid = false;
+          throw new RuntimeException();
+        }
+
         for (int i = 0; i<s.length(); i++){
             //if given character is not operator, num or bracket return false.
-            if(!isDigit(s.charAt(i)) && !isOperator(s.charAt(i)) && !isOpened(s.charAt(i)) && !isClosed(s.charAt(i)) && s.charAt(i) != ' ' && !isSqrt(s.charAt(i)))
+            if(!isDigit(s.charAt(i)) && !isOperator(s.charAt(i)) && !isOpened(s.charAt(i)) && !isClosed(s.charAt(i)) && s.charAt(i) != ' ' && !isSqrt(s.charAt(i))){
+                valid = false;
                 throw new RuntimeException("Invalid input");
+            }
+
         }
         int lastIndexOfSqrt = 0;
         if(s.contains("sqrt")){
@@ -50,23 +59,27 @@ public class ValidInput {
             int closeParenSqrt = lastIndexOfSqrt +6;
             if(isOpened(s.charAt(openParenSqrt)) && isDigit(s.charAt(digitForSqrt)) && isClosed(s.charAt(closeParenSqrt)))
                 valid = true;
-            else throw new RuntimeException("Invalid input");
+            else{
+                valid = false;
+                throw new RuntimeException("Invalid input");
+            }
         }
         for(int i =0; i<s.length(); i++){
             if(isOperator(s.charAt(i))){
                 int digitBefore = i - 2;
                 int digitAfter = i + 2;
-                if(!isDigit(s.charAt(digitBefore)) && !isClosed(s.charAt(digitBefore)) && !isDigit(s.charAt(digitAfter)) && !isOpened(s.charAt(digitAfter)))
-                    throw new RuntimeException("Invalid input");
-                else {
+                if(!isDigit(s.charAt(digitBefore)) && !isClosed(s.charAt(digitBefore)) && !isDigit(s.charAt(digitAfter)) && !isOpened(s.charAt(digitAfter))){
+                    valid = false;
                     throw new RuntimeException("Invalid input");
                 }
+
+
 
             }
 
         }
 
-
+    return valid;
     }
 
     /**
