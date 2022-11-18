@@ -57,12 +57,23 @@ public class ValidInput {
             int openParenSqrt = lastIndexOfSqrt + 2;
             int digitForSqrt = lastIndexOfSqrt + 4;
             int closeParenSqrt = lastIndexOfSqrt +6;
-            if(isOpened(s.charAt(openParenSqrt)) && isDigit(s.charAt(digitForSqrt)) && isClosed(s.charAt(closeParenSqrt)))
-                valid = true;
-            else{
-                valid = false;
-                throw new RuntimeException("Invalid input");
+            if(isDigit(s.charAt(digitForSqrt))){
+                if(isOpened(s.charAt(openParenSqrt))  && isClosed(s.charAt(closeParenSqrt)))
+                    valid = true;
+                else{
+                    valid = false;
+                    throw new RuntimeException("Invalid input");
+                }
             }
+            else if (isDigit(s.charAt(digitForSqrt+1))){
+                if(isOpened(s.charAt(openParenSqrt))  && isClosed(s.charAt(digitForSqrt+3)))
+                    valid = true;
+                else{
+                    valid = false;
+                    throw new RuntimeException("Invalid input");
+                }
+            }
+
         }
         for(int i =0; i<s.length(); i++){
             if(isOperator(s.charAt(i))){
