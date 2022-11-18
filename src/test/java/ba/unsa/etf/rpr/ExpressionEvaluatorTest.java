@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Ernad Zuga
  * @version 1.0
  */
-public class AppTest 
+public class ExpressionEvaluatorTest
 {
     /**
      * Test if result of ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) ) is 101.0
@@ -51,6 +51,20 @@ public class AppTest
     void test5(){
         assertThrows(RuntimeException.class, () -> {ValidInput.isValid("( 1 + 2 + )");}, "Invalid input");
     }
+    /**
+     * Test for sqrt of double-digit number
+     */
+    @Test
+    void test6(){
+        assertEquals(6.0, ExpressionEvaluator.evaluate("( 1 + sqrt ( 25 ) )"));
+    }
 
+    /**
+     * Test for sqrt of three-digit number
+     */
+    @Test
+    void test7(){
+        assertEquals(20.0, ExpressionEvaluator.evaluate("( sqrt ( 169 ) + 7 )"));
+    }
 
 }

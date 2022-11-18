@@ -50,36 +50,28 @@ public class ValidInput {
         int lastIndexOfSqrt = 0;
         if(s.contains("sqrt")){
             //checks using sqrt operator in expression
-            lastIndexOfSqrt = s.lastIndexOf("sqrt") + 3;
-         }
-        if(lastIndexOfSqrt != 0){
-            //checks correct using of sqrt operator
-            int openParenSqrt = lastIndexOfSqrt + 2;
-            int digitForSqrt = lastIndexOfSqrt + 4;
-            int closeParenSqrt = lastIndexOfSqrt +6;
-            if(isDigit(s.charAt(digitForSqrt))){
-                if(isOpened(s.charAt(openParenSqrt))  && isClosed(s.charAt(closeParenSqrt)))
-                    valid = true;
-                else{
-                    valid = false;
-                    throw new RuntimeException("Invalid input");
-                }
-            }
-            else if (isDigit(s.charAt(digitForSqrt+1))){
-                if(isOpened(s.charAt(openParenSqrt))  && isClosed(s.charAt(digitForSqrt+3)))
-                    valid = true;
-                else{
+            lastIndexOfSqrt = s.lastIndexOf("sqrt")+3;
+          String value = s.substring(lastIndexOfSqrt+4);
+          int i = 0;
+          String values2 = "";
+          while(s.charAt(i)!=' '){
+              values2 = values2+value.charAt(i);
+              i++;
+          }
+            for(int j = 0; j<values2.length(); j++){
+                if(!isDigit(values2.charAt(j))){
                     valid = false;
                     throw new RuntimeException("Invalid input");
                 }
             }
 
-        }
+         }
+
         for(int i =0; i<s.length(); i++){
             if(isOperator(s.charAt(i))){
                 int digitBefore = i - 2;
                 int digitAfter = i + 2;
-                if(!isDigit(s.charAt(digitBefore)) && !isClosed(s.charAt(digitBefore)) && !isDigit(s.charAt(digitAfter)) && !isOpened(s.charAt(digitAfter))){
+                if(!isDigit(s.charAt(digitBefore)) || !isClosed(s.charAt(digitBefore)) || !isDigit(s.charAt(digitAfter)) || !isOpened(s.charAt(digitAfter))){
                     valid = false;
                     throw new RuntimeException("Invalid input");
                 }
